@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="lg-12">
+        <a href="/" class="btn btn-primary" id="btn_back"><</a>
+        Result for [ {{ sterm }} ]        
+    </div>
+
+    <div class="lg-12">
+        <div class="lg-6">
+            <div class="lg-12">
+                Time elasped :
+                <span id="txt_time"></span>
+            </div>
+            <div>
+                Number of tweets scraped: 
+                <span id="tweets_total"></span>
+            </div>            
+        </div>
+        <div class="lg-6">
+            <a href="#" class="btn btn-primary" id="btn_pause">Pause</a>
+            <a href="/getcsv" class="btn btn-primary" id="btn_export">Export</a>
+        </div>                
+    </div>
+
+    <div class="lg-12">
+        <table id="resultTable" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>User</th>
+                    <th>Retweets</th>
+                    <th>TweetContent</th>                    
+                </tr>
+            </thead>
+            <tbody>              
+            </tbody>            
+        </table>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="/search?sterm={{ sterm }}&page={{page - 1}}">Previous</a></li>                
+                <li class="page-item"><a class="page-link" href="/search?sterm={{ sterm }}&page={{page + 1 }}">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+    
+    <script type="text/javascript">
+        var elsp_time = 0;
+        $(document).ready(function() {
+            {% if page == 0 %}
+                $.ajax({
+                    url: "/searchtweets?sterm={{ sterm }}",
+                    success: function(result){                
+                }});
+                setTimeout(updateDataTable, 2000);
+            {% else %}
+                updateDataTable();                
+            {% endif %}
+            setTimeout(updateDataCount, 1000);
+
+        })
+
+        function updateDataTable() {
+            $.ajax({
+                url: "/getcsvdata?page={{page}}",
+                success: function(result) {
+                    var data = JSON.parse(result);
+                    var obj = data.data;
+                    $('#tweets_total').html(data.count);
+
+                    for (i = 0; i < 10; i ++) {
+                        row = '<tr class="gradeX">' + '<td>' + obj.id[i] + '</td>' + '<td>' + obj.username[i] + '</td>' + '<td>' + obj.retweets_count[i] + '</td>'  + '<td>' + obj.tweet[i] + '</td>' + '</tr>';
+                        $('#resultTable tr:last').after(row);                    
+                    }
+                    //setTimeOut(updateDataTable, 2000);
+                }
+            });
+        }
+
+        function updateDataCount() {
+            $.ajax({
+                url: "/getcsvdatacount",
+                success: function(result) {
+                    var data = JSON.parse(result);
+                    var obj = data.data;
+                    $('#tweets_total').html(data.count);                                        
+                }
+            });
+            elsp_time ++;
+            $('#txt_time').html(elsp_time);
+            setTimeout(updateDataCount, 1000);
+        }
+    </script>
+{% endblock %}

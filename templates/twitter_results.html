@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="lg-12">
+        <a href="/" class="btn btn-primary" id="btn_back"><</a>
+        Result for [ {{ sterm }} ]        
+    </div>
+
+    <div class="lg-12">
+        <div class="lg-6">
+            <div class="lg-12">
+                Time elasped :
+                <span id="txt_time"></span>
+            </div>
+            <div>
+                Number of tweets scraped: 
+                <span id="tweets_total"></span>
+            </div>            
+        </div>
+        <div class="lg-6">
+            <a href="#" class="btn btn-primary" id="btn_pause">Pause</a>
+            <a href="#" class="btn btn-primary" id="btn_export">Export</a>
+        </div>                
+    </div>
+
+    <div class="lg-12">
+        <table cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="gradeX">
+                    <td>Trident</td>
+                    <td>
+                        Internet
+                            Explorer 
+                        4.0
+                        </td>
+                    <td>Win 95+</td>
+                    <td class="center">4</td>
+                    <td class="center">X</td>
+                </tr>                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Rendering engine</th>
+                    <th>Browser</th>
+                    <th>Platform(s)</th>
+                    <th>Engine version</th>
+                    <th>CSS grade</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <script type="text/javascript">
+
+    </script>
+{% endblock %}

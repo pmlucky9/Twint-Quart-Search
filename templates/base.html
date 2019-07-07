@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/bootstrap.min.css')}}" >
+        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/jquery.dataTables.min.css')}}" >
+        <script src="{{url_for('static', filename='js/jquery-3.3.1.js')}}"></script>
+        <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.dataTables.min.js')}}"></script>
+         
+      {% if title %}
+      <title>{{ title }} - Microblog</title>
+      {% else %}
+      <title>Welcome to Microblog</title>
+      {% endif %}
+    </head>
+    <body>
+        <div class="container">
+            <h3>A demo of searching tweets using Twint</h3>      
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

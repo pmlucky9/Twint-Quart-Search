@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="/search" type="get">
+        <input type="text" name="sterm" required>
+        <input type="submit" class="btn btn-primary" vaule="GO">
+    </form>
+{% endblock %}
